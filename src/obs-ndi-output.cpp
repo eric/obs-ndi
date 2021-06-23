@@ -161,7 +161,7 @@ bool ndi_output_start(void* data)
 				break;
 
 			default:
-				blog(LOG_WARNING, "unsupported pixel format %d", format);
+				blog(LOG_WARNING, "unsupported pixel format %s", get_video_format_name(format));
 				return false;
 		}
 
