@@ -40,9 +40,10 @@ done
 HAS_PACKAGES=$(type packagesbuild 2>/dev/null)
 
 if [ "${HAS_PACKAGES}" = "" ]; then
-    echo "[obs-ndi] Installing Packaging app (might require password due to 'sudo').."
-    curl -o './Packages.pkg' --retry-connrefused -s --retry-delay 1 'https://s3-us-west-2.amazonaws.com/obs-nightly/Packages.pkg'
-    sudo installer -pkg ./Packages.pkg -target /
+	echo "[obs-ndi] Installing Packaging app (might require password due to 'sudo').."
+	curl -L -O http://s.sudre.free.fr/Software/files/Packages.dmg
+	sudo hdiutil attach ./Packages.dmg
+	sudo installer -pkg /Volumes/Packages\ 1.2.9/Install\ Packages.pkg -target /
 fi
 
 # OBS Deps
