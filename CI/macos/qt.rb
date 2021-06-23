@@ -1,3 +1,6 @@
+# typed: false
+# frozen_string_literal: true
+
 # Patches for Qt must be at the very least submitted to Qt's Gerrit codereview
 # rather than their bug-report Jira. The latter is rarely reviewed by Qt.
 class Qt < Formula
@@ -6,12 +9,12 @@ class Qt < Formula
   url "https://download.qt.io/official_releases/qt/5.10/5.10.1/single/qt-everywhere-src-5.10.1.tar.xz"
   mirror "https://www.mirrorservice.org/sites/download.qt-project.org/official_releases/qt/5.10/5.10.1/single/qt-everywhere-src-5.10.1.tar.xz"
   sha256 "05ffba7b811b854ed558abf2be2ddbd3bb6ddd0b60ea4b5da75d277ac15e740a"
-  head "https://code.qt.io/qt/qt5.git", :branch => "5.10", :shallow => false
+  head "https://code.qt.io/qt/qt5.git", branch: "5.10", shallow: false
 
   bottle do
-    sha256 "8b4bad005596a5f8790150fe455db998ac2406f4e0f04140d6656205d844d266" => :high_sierra
-    sha256 "9c488554935fb573554a4e36d36d3c81e47245b7fefc4b61edef894e67ba1740" => :sierra
-    sha256 "c0407afba5951df6cc4c6f6c1c315972bd41c99cecb4e029919c4c15ab6f7bdc" => :el_capitan
+    sha256 high_sierra: "8b4bad005596a5f8790150fe455db998ac2406f4e0f04140d6656205d844d266"
+    sha256 sierra:      "9c488554935fb573554a4e36d36d3c81e47245b7fefc4b61edef894e67ba1740"
+    sha256 el_capitan:  "c0407afba5951df6cc4c6f6c1c315972bd41c99cecb4e029919c4c15ab6f7bdc"
   end
 
   keg_only "Qt 5 has CMake issues when linked"
@@ -26,7 +29,7 @@ class Qt < Formula
   # depends_on :macos => :mountain_lion
 
   depends_on "pkg-config" => :build
-  depends_on :xcode => :build
+  depends_on xcode: :build
   depends_on "mysql" => :optional
   depends_on "postgresql" => :optional
 
@@ -107,9 +110,10 @@ class Qt < Formula
     Pathname.glob("#{bin}/*.app") { |app| mv app, libexec }
   end
 
-  def caveats; <<~EOS
-    We agreed to the Qt opensource license for you.
-    If this is unacceptable you should uninstall.
+  def caveats
+    <<~EOS
+      We agreed to the Qt opensource license for you.
+      If this is unacceptable you should uninstall.
     EOS
   end
 
