@@ -32,15 +32,6 @@ for DEPENDENCY in ${BREW_DEPENDENCIES}; do
     fi
 done
 
-# qtndis deps
-echo "[obs-ndi] Installing obs-ndi dependency 'QT 5.10.1'.."
-
-brew install ./CI/macos/qt.rb
-
-# Pin this version of QT5 to avoid `brew upgrade`
-# upgrading it to incompatible version
-brew pin qt
-
 # Fetch and install Packages app
 # =!= NOTICE =!=
 # Installs a LaunchDaemon under /Library/LaunchDaemons/fr.whitebox.packages.build.dispatcher.plist
@@ -53,3 +44,14 @@ if [ "${HAS_PACKAGES}" = "" ]; then
     curl -o './Packages.pkg' --retry-connrefused -s --retry-delay 1 'https://s3-us-west-2.amazonaws.com/obs-nightly/Packages.pkg'
     sudo installer -pkg ./Packages.pkg -target /
 fi
+
+# OBS Deps
+echo "[obs-ndi] Installing obs-ndi dependency 'OBS Deps ${OBS_DEPS_VERSION}'.."
+wget --quiet --retry-connrefused --waitretry=1 https://github.com/obsproject/obs-deps/releases/download/${OBS_DEPS_VERSION}/macos-deps-${OBS_DEPS_VERSION}.tar.gz
+tar -xf ./macos-deps-${OBS_DEPS_VERSION}.tar.gz -C /tmp
+
+# Qt deps
+echo "[obs-ndi] Installing obs-websocket dependency 'Qt ${QT_VERSION}'.."
+curl -L -O https://github.com/obsproject/obs-deps/releases/download/${OBS_DEPS_VERSION}/macos-qt-${QT_VERSION}-${OBS_DEPS_VERSION}.tar.gz
+tar -xf ./macos-qt-${QT_VERSION}-${OBS_DEPS_VERSION}.tar.gz -C "/tmp"
+xattr -r -d com.apple.quarantine /tmp/obsdeps
