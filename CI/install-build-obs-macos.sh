@@ -35,8 +35,8 @@ mkdir build && cd build
 echo "[obs-ndi] Building obs-studio.."
 cmake .. \
 	-DCMAKE_OSX_DEPLOYMENT_TARGET=10.11 \
+    -DQTDIR=/tmp/obsdeps \
 	-DDISABLE_PLUGINS=true \
     -DENABLE_SCRIPTING=0 \
 	-DDepsPath=/tmp/obsdeps \
-	-DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake \
 && make -j4
