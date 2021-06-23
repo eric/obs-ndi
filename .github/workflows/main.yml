@@ -40,10 +40,10 @@ jobs:
       - name: 'Build OBS'
         run: ./CI/install-build-obs-macos.sh
         
-      - name: 'Build obs-ios-camera-source'
+      - name: 'Build obs-ndi'
         run: ./CI/build-macos.sh
         
-      - name: 'Package obs-ios-camera-source'
+      - name: 'Package obs-ndi'
         run: ./CI/package-macos.sh
 
       - name: 'Record filename'
